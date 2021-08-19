@@ -39,8 +39,9 @@ jobs:
       - name: Release into GH Rc
         id: ghcr-io-release
         env:
+          TAG: dev
           BUILDTASK_NAME: ${{ steps.build.outputs.buildtask_name }}
           ECR_REGISTRY: ghcr.io/${{ github.repository_owner }}
         run: |
-          docker tag $name $ECR_REGISTRY/$buildpack_id:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$buildpack_id:"$IMAGE_TAG"
+          docker tag $name $ECR_REGISTRY/$buildpack_id:$TAG
+          docker push $ECR_REGISTRY/$buildpack_id:"$TAG"
