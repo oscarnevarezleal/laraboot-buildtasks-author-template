@@ -30,19 +30,36 @@ jobs:
         with:
           # Replace this with
           buildtask-name: mybuildtask
-      - name: Login to GitHub Container Registry
+
+      - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
-      - name: Release into GH Rc
-        id: ghcr-io-release
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Release into DockerHub
         env:
           TAG: dev
           # or consume ${{ steps.build.outputs.buildtask_name }}
           BUILDTASK_NAME: mybuildtask
-          ECR_REGISTRY: ghcr.io/${{ github.repository_owner }}
+          ECR_REGISTRY: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
           docker tag $BUILDTASK_NAME $ECR_REGISTRY/$BUILDTASK_NAME:$TAG
           docker push $ECR_REGISTRY/$BUILDTASK_NAME:$TAG
+
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.repository_owner }}
+#          password: ${{ secrets.CR_PAT }}
+#      - name: Release into GH Rc
+#        id: ghcr-io-release
+#        env:
+#          TAG: dev
+#          # or consume ${{ steps.build.outputs.buildtask_name }}
+#          BUILDTASK_NAME: mybuildtask
+#          ECR_REGISTRY: ghcr.io/${{ github.repository_owner }}
+#        run: |
+#          docker tag $BUILDTASK_NAME $ECR_REGISTRY/$BUILDTASK_NAME:$TAG
+#          docker push $ECR_REGISTRY/$BUILDTASK_NAME:$TAG
