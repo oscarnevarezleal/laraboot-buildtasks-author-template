@@ -43,5 +43,5 @@ jobs:
           BUILDTASK_NAME: ${{ steps.build.outputs.buildtask_name }}
           ECR_REGISTRY: ghcr.io/${{ github.repository_owner }}
         run: |
-          docker tag $name $ECR_REGISTRY/$buildpack_id:$TAG
-          docker push $ECR_REGISTRY/$buildpack_id:"$TAG"
+          docker tag $name $ECR_REGISTRY/$BUILDTASK_NAME:$TAG
+          docker push $ECR_REGISTRY/$BUILDTASK_NAME:"$TAG"
