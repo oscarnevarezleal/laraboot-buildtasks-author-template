@@ -1,0 +1,5 @@
+laraboot-commander:
+  commands:
+    - ls
+    - pwd
+    - git --version
