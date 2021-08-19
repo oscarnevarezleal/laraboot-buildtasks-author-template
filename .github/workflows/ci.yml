@@ -25,5 +25,6 @@ jobs:
       - uses: buildpacks/github-actions/setup-pack@v4.1.0
       - uses: laraboot-io/github-actions/commander@next
         with:
-          ref: next
+          # Replace this with
+          buildtask-name: myBuildTask
 
