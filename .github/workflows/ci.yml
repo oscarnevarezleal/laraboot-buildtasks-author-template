@@ -39,7 +39,8 @@ jobs:
 
       - name: Release into DockerHub
         env:
-          TAG: dev
+          # Use current branch as tag
+          TAG: ${CI_COMMIT_REF_NAME}
           # or consume ${{ steps.build.outputs.buildtask_name }}
           BUILDTASK_NAME: mybuildtask
           ECR_REGISTRY: ${{ secrets.DOCKER_HUB_USERNAME }}
