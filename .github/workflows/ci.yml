@@ -24,8 +24,23 @@ jobs:
       - uses: actions/setup-go@v1
         with:
           go-version: 1.16.x
-      - uses: laraboot-io/github-actions/commander@next
+      - name: Build
+        id: build
+        uses: laraboot-io/github-actions/commander@next
         with:
           # Replace this with
           buildtask-name: myBuildTask
-
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Release into GH Rc
+        id: ghcr-io-release
+        env:
+          BUILDTASK_NAME: ${{ steps.build.outputs.buildtask_name }}
+          ECR_REGISTRY: ghcr.io/${{ github.repository_owner }}
+        run: |
+          docker tag $name $ECR_REGISTRY/$buildpack_id:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$buildpack_id:"$IMAGE_TAG"
