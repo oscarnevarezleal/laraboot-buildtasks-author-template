@@ -27,11 +27,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
         uses: laraboot-io/github-actions/setup-cli@cli-actions
       - name: Authenticate
-        id: auth
-        #        uses: laraboot-io/github-actions/authenticate@cli-actions
-        #        with:
-        #          username: ${{ secrets.LARABOOT_USERNAME }}
-        #          token: ${{ secrets.LARABOOT_TOKEN }}
         run: |
           echo "${{ secrets.LARABOOT_TOKEN }}" | laraboot login --user "${{ secrets.LARABOOT_USERNAME }}" -vvv
       - name: Build
