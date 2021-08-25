@@ -22,7 +22,7 @@ jobs:
       - name: Setup laraboot CLI
         uses: laraboot-io/github-actions/setup-cli@cli-actions
       - name: Authenticate
-        id: build
+        id: auth
         uses: laraboot-io/github-actions/authenticate@cli-actions
         with:
           username: ${{ secrets.LARABOOT_USERNAME }}
