@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: 12
       - name: Setup laraboot CLI
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
         uses: laraboot-io/github-actions/setup-cli@cli-actions
       - name: Authenticate
         id: auth
